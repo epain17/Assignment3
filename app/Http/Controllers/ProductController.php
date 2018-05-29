@@ -28,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view("create");
     }
 
     /**
@@ -39,7 +39,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product;
+        $product->title = $request->input("title");
+        $product->publisher = $request->input("publisher");
+        $product->price = $request->input("price");
+        $product->description = $request->input("description");
+        $product->image = $product->input("image");
+        $product->save();
+
+        foreach ($request->input("stores") as $store)
+        {
+          $productInStock = new ProductStore;
+          $productInStock->store_id = $store;
+          $productInStock->product_id = $product->id;
+          $productInStock->save();
+        }
+
+        return redirect()->route('index');
+
     }
 
     /**
@@ -50,7 +67,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::find($id);
+
+        return view("show", ["product" => $product]);
     }
 
     /**
@@ -61,7 +80,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+      $product = Product::find($id);
+
+      return view("products.edit", ["product" => $product]);
     }
 
     /**
@@ -73,7 +94,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $product = Product::find($id);
+      $product->title = $request->input("title");
+      $product->publisher = $request->input("publisher");
+      $product->price = $request->input("price");
+      $product->description = $request->input("description");
+      $product->image = $product->input("image");
+      $product->save();
+
+      foreach ($request->input("stores") as $store)
+      {
+        $productInStock = new ProductStore;
+        $productInStock->store_id = $store;
+        $productInStock->product_id = $product->id;
+        $productInStock->save();
+      }
+
+      return redirect()->route('index');
     }
 
     /**
@@ -84,6 +121,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        ProductStore::destroy()->all()->where('product_id', $id);
     }
 }
