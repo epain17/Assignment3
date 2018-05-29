@@ -27,9 +27,11 @@
         <input type="text" class="form-control" id="image" name="image">
     </div>
 
-
-
-    <button type="submit" class="btn btn-success">Save Game</button>
-</form>
+  @foreach ($stores as $store)
+    <div class="form-check">
+     <input type="checkbox" class="form-check-input" id="{{$store->id}}">
+     <label class="form-check-label" for="exampleCheck1">{{ $store->name }}</label>
+   </div>
+   @endforeach
 
 @endsection

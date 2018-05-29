@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Product;
+use App\Review;
+use App\Store;
+use App\ProductStore;
 use Carbon\Carbon;
 
 
@@ -29,7 +32,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("create");
+      $stores = Store::all();
+        return view("create", [
+          "stores" => $stores
+        ]);
     }
 
     /**
@@ -49,14 +55,14 @@ class ProductController extends Controller
         $createdAt = Carbon::now();
         $product->created_at = $createdAt;
         $product->save();
-        //
-        // foreach ($request->input("stores") as $store)
-        // {
-        //   $productInStock = new ProductStore;
-        //   $productInStock->store_id = $store;
-        //   $productInStock->product_id = $product->id;
-        //   $productInStock->save();
-        // }
+
+        foreach ($request->input("stores") as $store)
+         {
+           $productInStock = new ProductStore;
+           $productInStock->store_id = $store;
+           $productInStock->product_id = $product->id;
+           $productInStock->save();
+         }
 
         return redirect()->route('index');
     }
@@ -70,8 +76,18 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
+        $reviews = Review::all()->where('product_id', $id);
+        $product_store = ProductStore::all()->where('product_id', $id);
 
-        return view("show", ["product" => $product]);
+        $storesWithProduct = [];
+
+        foreach ($product_store as $pS )
+        {
+            $store = Store::all()->where('id', $pS->store_id)->first();
+            $storesWithProduct[] = $store;
+        }
+        return view("show", ["product" => $product, "reviews" => $reviews, "stores" =>
+    $storesWithProduct]);
     }
 
     /**
