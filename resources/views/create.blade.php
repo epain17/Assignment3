@@ -1,10 +1,10 @@
-@extends("index")
+@extends("layout")
 
 @section("content")
 
 <h1>Add a game</h1>
 
-<form action="{{ route('store') }}" method="POST">
+<form action="{{ route('products.store') }}" method="POST">
     @csrf
     <div class="form-group">
         <label for="title">Title</label>
@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
         <label for="price">Price</label>
-        <input type="text" class="form-control" id="price" name="price">
+        <input type="integer" class="form-control" id="price" name="price">
     </div>
     <div class="form-group">
         <label for="description">Description</label>
@@ -27,19 +27,9 @@
         <input type="text" class="form-control" id="image" name="image">
     </div>
 
-    <div class="form-group">
-    <label for="exampleFormControlSelect1">Example select</label>
-    <select class="form-control" id="exampleFormControlSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-  </div>
-  
 
-    <button type="submit" class="btn btn-success">Spara film</button>
+
+    <button type="submit" class="btn btn-success">Save Game</button>
 </form>
 
 @endsection

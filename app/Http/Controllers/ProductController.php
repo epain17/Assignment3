@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Product;
+use Carbon\Carbon;
 
 
 use Illuminate\Http\Request;
@@ -42,21 +43,22 @@ class ProductController extends Controller
         $product = new Product;
         $product->title = $request->input("title");
         $product->publisher = $request->input("publisher");
-        $product->price = $request->input("price");
+        $product->image = $request->input("image");
         $product->description = $request->input("description");
-        $product->image = $product->input("image");
+        $product->price = $request->input("price");
+        $createdAt = Carbon::now();
+        $product->created_at = $createdAt;
         $product->save();
-
-        foreach ($request->input("stores") as $store)
-        {
-          $productInStock = new ProductStore;
-          $productInStock->store_id = $store;
-          $productInStock->product_id = $product->id;
-          $productInStock->save();
-        }
+        //
+        // foreach ($request->input("stores") as $store)
+        // {
+        //   $productInStock = new ProductStore;
+        //   $productInStock->store_id = $store;
+        //   $productInStock->product_id = $product->id;
+        //   $productInStock->save();
+        // }
 
         return redirect()->route('index');
-
     }
 
     /**
