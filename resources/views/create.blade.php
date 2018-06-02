@@ -34,4 +34,6 @@
    </div>
    @endforeach
 
+    <button type="submit" class="btn btn-success">Add game</button>
+
 @endsection

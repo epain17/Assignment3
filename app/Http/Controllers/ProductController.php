@@ -100,7 +100,7 @@ class ProductController extends Controller
     {
       $product = Product::find($id);
 
-      return view("products.edit", ["product" => $product]);
+      return view("edit", ["product" => $product]);
     }
 
     /**
@@ -117,18 +117,21 @@ class ProductController extends Controller
       $product->publisher = $request->input("publisher");
       $product->price = $request->input("price");
       $product->description = $request->input("description");
-      $product->image = $product->input("image");
+      $product->image = $request->input("image");
       $product->save();
 
-      foreach ($request->input("stores") as $store)
-      {
-        $productInStock = new ProductStore;
-        $productInStock->store_id = $store;
-        $productInStock->product_id = $product->id;
-        $productInStock->save();
-      }
+      // foreach ($request->input("stores") as $store)
+      // {
+      //   $productInStock = new ProductStore;
+      //   $productInStock->store_id = $store;
+      //   $productInStock->product_id = $product->id;
+      //   $productInStock->save();
+      // }
 
       return redirect()->route('index');
+
+      //return view("products.update", ["product" => $product]);
+
     }
 
     /**

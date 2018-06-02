@@ -7,6 +7,8 @@
   <div class="card-body">
     <h5 class="card-title">{{ $product->title }}</h5>
     <p class="card-text">{{ $product->description }}.</p>
+    <a href="{{ route('products.edit', ['id'=> $product->id]) }}" class="card-link">Update game</a>
+
   </div>
   <h6>Reviews</h6>
   <ul class="list-group">
