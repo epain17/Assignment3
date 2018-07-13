@@ -29,7 +29,8 @@
 
   @foreach ($stores as $store)
     <div class="form-check">
-     <input type="checkbox" class="form-check-input" id="{{$store->id}}">
+     <input type="checkbox" class="form-check-input" id="{{$store->id}}"name="stores[]"
+     value="{{$store->id}}">
      <label class="form-check-label" for="exampleCheck1">{{ $store->name }}</label>
    </div>
    @endforeach

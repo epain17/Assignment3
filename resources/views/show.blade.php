@@ -10,7 +10,7 @@
     <a href="{{ route('products.edit', ['id'=> $product->id]) }}" class="card-link">Update game</a>
 
   </div>
-  <h6>Reviews</h6>
+  <h5>Reviews</h5>
   <ul class="list-group">
     @foreach ($reviews as $review)
 
@@ -21,7 +21,7 @@
 
   @endforeach
 
-  <h6>In stock</h6>
+  <h5>In stock</h5>
   <ul class="list-group">
     @foreach ($stores as $store)
 

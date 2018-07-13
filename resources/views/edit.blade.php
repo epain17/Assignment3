@@ -31,6 +31,10 @@
 
     <button type="submit" class="btn btn-success">Update game</button>
 
+<form action="{{ route('products.update', ['product' => $product->id]) }}" method="POST">
+  @csrf
+  <input name="_method" type="hidden" value="DELETE">
+      <button class="btn btn-danger" type="submit">Delete Game</button>
 
 
 @endsection

@@ -52,12 +52,17 @@ class ProductController extends Controller
         $product->image = $request->input("image");
         $product->description = $request->input("description");
         $product->price = $request->input("price");
+        //$inStockArray();
         $createdAt = Carbon::now();
         $product->created_at = $createdAt;
         $product->save();
 
-        foreach ($request->input("stores") as $store)
-         {
+
+       $inStock = $request->input("stores");
+
+
+        foreach ($inStock as $store)
+         {https://appdividend.com/2018/02/23/laravel-5-6-crud-tutorial/
            $productInStock = new ProductStore;
            $productInStock->store_id = $store;
            $productInStock->product_id = $product->id;
@@ -99,6 +104,7 @@ class ProductController extends Controller
     public function edit($id)
     {
       $product = Product::find($id);
+      $product_store = ProductStore::all()->where('product_id', $id);
 
       return view("edit", ["product" => $product]);
     }
@@ -120,17 +126,7 @@ class ProductController extends Controller
       $product->image = $request->input("image");
       $product->save();
 
-      // foreach ($request->input("stores") as $store)
-      // {
-      //   $productInStock = new ProductStore;
-      //   $productInStock->store_id = $store;
-      //   $productInStock->product_id = $product->id;
-      //   $productInStock->save();
-      // }
-
       return redirect()->route('index');
-
-      //return view("products.update", ["product" => $product]);
 
     }
 
@@ -144,5 +140,8 @@ class ProductController extends Controller
     {
         Product::destroy($id);
         ProductStore::destroy()->all()->where('product_id', $id);
+        return redirect()->route('index')->with('success',
+        'Game has been  deleted');
+
     }
 }
