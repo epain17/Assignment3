@@ -69,7 +69,7 @@ class ProductController extends Controller
            $productInStock->save();
          }
 
-        return redirect()->route('index');
+        return redirect()->route('products.index')->with('message', 'Game added');
     }
 
     /**
@@ -140,7 +140,7 @@ class ProductController extends Controller
     {
         Product::destroy($id);
         ProductStore::destroy()->all()->where('product_id', $id);
-        return redirect()->route('index')->with('success',
+        return redirect()->route('products.index')->with('success',
         'Game has been  deleted');
 
     }
