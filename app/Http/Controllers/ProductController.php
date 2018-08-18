@@ -62,7 +62,7 @@ class ProductController extends Controller
 
 
         foreach ($inStock as $store)
-         {https://appdividend.com/2018/02/23/laravel-5-6-crud-tutorial/
+         {
            $productInStock = new ProductStore;
            $productInStock->store_id = $store;
            $productInStock->product_id = $product->id;
@@ -126,7 +126,7 @@ class ProductController extends Controller
       $product->image = $request->input("image");
       $product->save();
 
-      return redirect()->route('index');
+      return redirect()->route('products.show', ['id' => $id])->with('message', 'Game updated');
 
     }
 
@@ -138,8 +138,25 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
-        ProductStore::destroy()->all()->where('product_id', $id);
+
+     $productStores = ProductStore::all()->where('product_id' , $id);
+     $reviews = Review::all()->where('product_id' , $id);
+     foreach ($productStores as $pS)
+     {
+       $pS->delete();
+     }
+     foreach ($reviews as $review)
+     {
+       $review->delete();
+     }
+
+
+              Product::destroy($id);
+
+
+
+
+
         return redirect()->route('products.index')->with('success',
         'Game has been  deleted');
 
