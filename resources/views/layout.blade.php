@@ -23,7 +23,7 @@
 </nav>
 
 
-<div class="container" style="padding-top: 20px;">
+<div class="container" style="padding-top: 20px; float:left;">
            @yield("content")
 </div>
 
