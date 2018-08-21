@@ -38,6 +38,24 @@ class ProductController extends Controller
         ]);
     }
 
+
+
+    public function saveReview(Request $request, $id)
+    {
+      $review = new Review;
+      $review->name = $request->input("name");
+      $review->comment = $request->input("comment");
+      $review->grade = $request->input("grade");
+
+      $review->product_id = $id;
+      $created_at = Carbon::now();
+      $review->save();
+
+      return redirect()->route('products.show', ['id' => $id])->with('message', 'Review added');
+
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,7 +70,6 @@ class ProductController extends Controller
         $product->image = $request->input("image");
         $product->description = $request->input("description");
         $product->price = $request->input("price");
-        //$inStockArray();
         $createdAt = Carbon::now();
         $product->created_at = $createdAt;
         $product->save();
@@ -92,7 +109,7 @@ class ProductController extends Controller
             $storesWithProduct[] = $store;
         }
         return view("show", ["product" => $product, "reviews" => $reviews, "stores" =>
-    $storesWithProduct]);
+        $storesWithProduct]);
     }
 
     /**
@@ -150,14 +167,9 @@ class ProductController extends Controller
        $review->delete();
      }
 
+      Product::destroy($id);
 
-              Product::destroy($id);
-
-
-
-
-
-        return redirect()->route('products.index')->with('success',
+      return redirect()->route('products.index')->with('success',
         'Game has been  deleted');
 
     }

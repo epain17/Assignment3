@@ -17,8 +17,8 @@
     {{ $review->comment}}
     <span class="badge badge-primary badge-pill">{{ $review->grade}}</span>
   </li>
-
   @endforeach
+  <a href="{{ route('products.addReview', ['id'=> $product->id]) }}" class="card-link">Add review</a>
 
   <h5>In stock</h5>
   <ul class="list-group">
@@ -30,6 +30,8 @@
 
   @endforeach
   <a href="{{ route('products.edit', ['id'=> $product->id]) }}" class="card-link">Update game</a>
+
+
 
 </ul>
 

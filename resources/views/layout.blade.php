@@ -19,7 +19,6 @@
 <nav class="nav">
   <a class="nav-link active" href="{{ route('products.index') }}">Home</a>
   <a class="nav-link" href="{{ route('products.create') }}">Add game</a>
-  <a class="nav-link" href="#">Reviews</a>
 </nav>
 
 
