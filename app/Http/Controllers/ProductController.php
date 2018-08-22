@@ -39,23 +39,6 @@ class ProductController extends Controller
     }
 
 
-
-    public function saveReview(Request $request, $id)
-    {
-      $review = new Review;
-      $review->name = $request->input("name");
-      $review->comment = $request->input("comment");
-      $review->grade = $request->input("grade");
-
-      $review->product_id = $id;
-      $created_at = Carbon::now();
-      $review->save();
-
-      return redirect()->route('products.show', ['id' => $id])->with('message', 'Review added');
-
-
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -173,4 +156,8 @@ class ProductController extends Controller
         'Game has been  deleted');
 
     }
+
+
+
+
 }
