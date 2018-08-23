@@ -16,13 +16,24 @@
      <p class="lead">A page that allowing gamers to add thier favorite games and reviews.</p>
      </p>
     </div>
+
+    @if (Route::has('login'))
 <nav class="nav">
-  <a class="nav-link active" href="{{ route('products.index') }}">Home</a>
+  @auth
+  <a class="nav-link active" href="{{ route('products.index') }}">Games</a>
   <a class="nav-link" href="{{ route('products.create') }}">Add game</a>
   <a class="nav-link" href="{{ route('reviews.create') }}">Add review</a>
+  <a class="nav-link" href="{{ route('login') }}">Sign in</a>
+  <a class="nav-link" href="{{ route('register') }}">Register</a>
+  @else
+  <a class="nav-link active" href="{{ route('products.index') }}">Games</a>
+  <a class="nav-link" href="{{ route('login') }}">Sign in</a>
+  <a class="nav-link" href="{{ route('register') }}">Register</a>
+@endauth
+
 
 </nav>
-
+@endif
 
 <div class="container" style="padding-top: 20px; float:left;">
            @yield("content")

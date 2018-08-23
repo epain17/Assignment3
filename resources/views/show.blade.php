@@ -28,9 +28,12 @@
   </li>
 
   @endforeach
+
+  @if (Route::has('login'))
+@auth
   <a href="{{ route('products.edit', ['id'=> $product->id]) }}" class="card-link">Update game</a>
-
-
+@endauth
+@endif
 
 </ul>
 
