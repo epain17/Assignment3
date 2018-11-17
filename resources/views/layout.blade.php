@@ -23,7 +23,15 @@
   <a class="nav-link active" href="{{ route('products.index') }}">Games</a>
   <a class="nav-link" href="{{ route('products.create') }}">Add game</a>
   <a class="nav-link" href="{{ route('reviews.create') }}">Add review</a>
-  <a class="nav-link" href="{{ route('login') }}">Sign in</a>
+  <a class="nav-link" href="{{ route('logout') }}"
+     onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();">
+      {{ __('Sign Out') }}
+  </a>
+
+  <form id="logout-form" action="{{ route('logout') }}" method="POST">
+      @csrf
+  </form>
   <a class="nav-link" href="{{ route('register') }}">Register</a>
   @else
   <a class="nav-link active" href="{{ route('products.index') }}">Games</a>
